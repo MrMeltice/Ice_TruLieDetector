@@ -17,21 +17,32 @@ class Main {
 
     System.out.println();
     
-    String info = "";
+    String info = "INSERT INFO HERE";
 
     System.out.println(info);
 
     String pressEnter = "𝓟𝓻𝓮𝓼𝓼 𝓔𝓷𝓽𝓮𝓻 𝓣𝓸 𝓒𝓸𝓷𝓽𝓲𝓷𝓾𝓮";
 
-    System.out.println("\n\n" + pressEnter);
+    System.out.println("\n" + pressEnter);
     Scanner s = new Scanner(System.in);
     s.nextLine();
 
-    String storyProps = "Now you should ";
+    String storyPrompt = "Now you should be able insert your story. ";
 
-    System.out.println(storyProps);
+    System.out.println(storyPrompt);
     Scanner g = new Scanner(System.in);
-    g.nextLine();
+    String storyAns = g.nextLine();
+
+    Process storyText = new Process();
+
+    storyText.removeCommon(storyAns);
+
+    
+
+
+
+
+
 
 
 
