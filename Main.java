@@ -26,8 +26,10 @@ class Main {
     System.out.println("\n" + pressEnter);
     Scanner s = new Scanner(System.in);
     s.nextLine();
+    
 
-    String storyPrompt = "Now you should be able insert your story. ";
+    String storyPrompt = "Now you should be able to insert your story. Please keep the story as detailed as possible as it should be concise. Describe your surroundings, ";
+
 
     System.out.println(storyPrompt);
     Scanner g = new Scanner(System.in);

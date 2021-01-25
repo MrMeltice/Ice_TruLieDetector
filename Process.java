@@ -8,16 +8,29 @@ import java.io.FileNotFoundException;
 
 class Process {
   static int smellCount, sightCount, touchCount, tasteCount, hearCount;
+  static double reli;
   static boolean smell, sight, touch, taste, hear = false;
-
+  //main ArrayList
   static ArrayList<String> storyAL = new ArrayList();
   static ArrayList<String> comAL = new ArrayList();
-  
+  //senses ArrayList
+  static ArrayList<String> smellAL = new ArrayList();
+  static ArrayList<String> sightAL = new ArrayList();
+  static ArrayList<String> touchAL = new ArrayList();
+  static ArrayList<String> tasteAL = new ArrayList();
+  static ArrayList<String> hearAL = new ArrayList();
+  //count ArrayList
+  static ArrayList<String> countAL = new ArrayList();
 
-  public void tellMe() {
-    System.out.println("Which of these can you provide more details on?\nPlease note: The more details you are able to provide the more reliable your information will become");
+  static Scanner s = new Scanner(System.in);
 
-    System.out.println("");
+  public void promptIntro() {
+    System.out.println("Please note: The more details you are able to provide the more reliable your information will become. \n To achieve such a task, we would like you to answer each prompt within 3 sentence as fast as you can.");
+
+    String pressEnter = "𝓟𝓻𝓮𝓼𝓼 𝓔𝓷𝓽𝓮𝓻 𝓣𝓸 𝓒𝓸𝓷𝓽𝓲𝓷𝓾𝓮";
+
+    System.out.println("\n" + pressEnter);
+    s.nextLine();
   }
 
 
@@ -53,7 +66,6 @@ class Process {
       comAL.add(a.toLowerCase());
     }
 
-
     System.out.println("WordCount storyAL: " + storyAL.size());
 
     removeCom(storyAL, comAL);
@@ -66,24 +78,96 @@ class Process {
   }
 
   public void questApp() {
-    tellMe();
+    System.out.println("Which of these sense can you provide more details on?\n*select only if applicable*");
+
+    System.out.println("If "
+
+    if (smell == false){
+      System.out.println("[A] smell");
+    } 
+    else if (sight == false ){
+      System.out.println("[B] sight");
+    }
+    else if (touch == false ){
+      System.out.println("[C] touch");
+    }
+    else if (taste == false){
+      System.out.println("[D] taste");
+    }
+    else if (hear == false){
+      System.out.println("[E] hear");
+    }
+
+    System.out.println("Please type the letters in front to proceed: ");
     
+    String choice = s.nextLine().toLowerCase();
+
+    if (choice.equals("a") && smell == false){
+      questSmell();
+    }
+    else if (choice.equals("b")  && sight == false ){
+      questSight();
+    }
+    else if (choice.equals("c") && touch == false ){
+      questTouch();
+    }
+    else if (choice.equals("d") && taste == false){
+      questTaste();
+    }
+    else if (choice.equals("e") && hear == false){
+      questHear();
+    } else {
+      questApp();
+    }
+  }
+
+  public void questSmell() {
+    System.out.println("");
+    
+
+
+
+    
+  }
+
+  public void questSight() {
+    System.out.println("");
     
 
 
     
   }
 
-  public void questSmell() {
-    
-    System.out.println(""");
-    Scanner s = new Scanner(System.in);
-    s.nextLine();
-    
+  public void questTouch() {
+    System.out.println("");
     
 
 
     
+  }
+
+  public void questTaste() {
+    System.out.println("");
+    
+
+
+    
+  }
+
+  public void questHear() {
+    System.out.println("");
+    
+
+
+    
+  }
+
+
+
+  public int wordSpeed(int time, int word){
+    speedRate = "";
+    
+    return speedRate;
   }
 
 
