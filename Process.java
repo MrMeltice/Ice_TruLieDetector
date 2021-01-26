@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.util.Scanner;
+import java.util.Collections;
 import java.io.FileNotFoundException;
 
 class Process {
@@ -83,6 +84,7 @@ class Process {
     System.out.println(countAL);
     System.out.println(smellAL);
     System.out.println(storyAL);
+    //
     System.out.println("Which of the following can you provide details on?");
 
     System.out.println("The more details you are able to provide the more reliable your information will become, so select as much as it is applicable to the situation");
@@ -124,6 +126,9 @@ class Process {
     }
     else if (choice.equals("e") && hear == false){
       questHear();
+    }
+    else if (choice.equals("e") && hear == false){
+      procEnd();
     } else {
       questApp();
     }
@@ -133,6 +138,7 @@ class Process {
   public void questSmell() {
     Main.clearScreen();
     promptIntro();
+    Main.clearScreen();
 
     long startTime = System.currentTimeMillis();
 
@@ -150,8 +156,6 @@ class Process {
     System.out.println("[3]Input your response: ");
     String ans3 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans3;
-    
-
 
     long stopTime = System.currentTimeMillis();
     long totalTime = (stopTime - startTime)/1000;
@@ -169,11 +173,11 @@ class Process {
     while (smellAL.remove("")){
     }
 
-    //calcSpeed(totalTime, smellAL.size());
+    double speed = calcSpeed(totalTime, smellAL.size());
+
 
     removeCom(smellAL, comAL);
-    this.smellCount = compareAL(storyAL, smellAL);
-
+    this.smellCount = compareAL(smellAL, storyAL);
     String smellMatched = "Smell Matched: " + this.smellCount;
 
     System.out.println(smellMatched);
@@ -219,12 +223,55 @@ class Process {
     
   }
 
+  //pre = get time and amount of words as parameter
+  //post = return wordspersec from parameter to method
+  public double calcSpeed(double timeSec, double word){
+    System.out.println("Seconds: " + timSec + "Amount of Words: " + word);
 
+    double wordsPerSec = word/timeSec;
+    double wordsPerMin = wordsPerSec * 60;
+    System.out.println("Words per Second: " + wordsPerSec + "Words per Minute: ");
 
-  public int calcSpeed(int time, int word){
-    int speedRate = 0;
+    Main.sleep(5);
     
-    return speedRate;
+    return wordsPerSec;
+  }
+
+  //pre = get wordspersec as parameter
+  //post = return rating from wordspersec to method
+  public String rateSpeed(double wordsPerSec){
+    String rating = "";
+    //Reliability
+    if (wordsPerSec >= 0.83){
+      rating = "Very High";
+    }//Above Average
+    else if(wordsPerSec >= 0.75){
+      rating = "High";
+    }//Average
+    else if(wordsPerSec >= 0.66){
+      rating = "Moderate";
+    }//Below Average
+    else if(wordsPerSec >= 0.58){
+      rating = "Below Moderate";
+    }//
+    else if(wordsPerSec >= 0.50){
+      rating = "Low";
+    }
+    else if(wordsPerSec >= (0.41)){
+      rating = "Very Low";
+    }
+    else if(wordsPerSec >= (0.33)){
+      rating = "Extremely Low";
+    }
+    else{
+      rating = "No Reliability";
+    }
+    
+    return rating;
+  }
+
+  public void procEnd(){
+
   }
 
 
@@ -245,13 +292,26 @@ class Process {
 
   
   //Compare how many details are dublicates
-  public int compareAL(ArrayList<String> compareTo, ArrayList<String> compareWith) {
+  public int compareAL(ArrayList<String> diffAL, ArrayList<String> mainAL) {
     int matchResult = 0;
-    for (int x = compareTo.size()-1; x > 0; x--){
-      for(int y = 0; y < compareWith.size(); y++){
-        if(compareTo.get(x).equals(compareWith.get(y))){
-          compareTo.remove(x);
+    
+    diffAL.retainAll(mainAL);
+
+    matchResult = diffAL.size();
+
+    return matchResult;  
+    
+  }
+
+ 
+  /*
+  public int compareAL(ArrayList<String> xAL, ArrayList<String> yAL) {
+    int matchResult = 0;
+    for (int x = xAL.size() - 1; x > 0; x--){
+      for(int y = 0; yAL.size() > y; y++){
+        if(xAL.get(x).equals(yAL.get(y))){
           matchResult++;
+          xAL.remove(x);
         }
       }
     }
@@ -259,6 +319,15 @@ class Process {
     return matchResult;  
     
   }
-  
+  */
+
+  /*
+  Pre-conditions are the things that must be true before a method is called. The method tells clients "this is what I expect from you".
+
+  Post-conditions are the things that must be true after the method is complete. The method tells clients "this is what I promise to do for you".
+
+  Invariants are the things that are always true and won't change. The method tells clients "if this was true before you called me, I promise it'll still be true when I'm done".
+  */
+
 
 }
