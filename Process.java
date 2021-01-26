@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 class Process {
   static int smellCount, sightCount, touchCount, tasteCount, hearCount;
   static double reli;
-  static boolean smell, sight, touch, taste, hear = false;
+  static boolean smell, sight, touch, taste, hear, end = false;
   //main ArrayList
   static ArrayList<String> storyAL = new ArrayList();
   static ArrayList<String> comAL = new ArrayList();
@@ -78,27 +78,35 @@ class Process {
   }
 
   public void questApp() {
-    System.out.println("Which of these sense can you provide more details on?\n*select only if applicable*");
+    Main.clearScreen();
+    //remove when done
+    System.out.println(countAL);
+    System.out.println(smellAL);
+    System.out.println(storyAL);
+    System.out.println("Which of the following can you provide details on?");
 
-    System.out.println("If "
+    System.out.println("The more details you are able to provide the more reliable your information will become, so select as much as it is applicable to the situation");
 
     if (smell == false){
       System.out.println("[A] smell");
     } 
-    else if (sight == false ){
+    if (sight == false ){
       System.out.println("[B] sight");
     }
-    else if (touch == false ){
+    if (touch == false ){
       System.out.println("[C] touch");
     }
-    else if (taste == false){
+    if (taste == false){
       System.out.println("[D] taste");
     }
-    else if (hear == false){
+    if (hear == false){
       System.out.println("[E] hear");
     }
+    if (end == false){
+      System.out.println("[F] no more applies");
+    }
 
-    System.out.println("Please type the letters in front to proceed: ");
+    System.out.print("Please type the letters in front to proceed: ");
     
     String choice = s.nextLine().toLowerCase();
 
@@ -119,15 +127,64 @@ class Process {
     } else {
       questApp();
     }
+    Main.clearScreen();
   }
 
   public void questSmell() {
-    System.out.println("");
+    Main.clearScreen();
+    promptIntro();
+
+    long startTime = System.currentTimeMillis();
+
+    System.out.println("[1]Input your response: ");
+    String totalAns = s.nextLine().toLowerCase();
+
+    Main.clearScreen();
+    
+    System.out.println("[2]Input your response: ");
+    String ans2 = s.nextLine().toLowerCase();
+    totalAns = totalAns + " " + ans2;
+
+    Main.clearScreen();
+    
+    System.out.println("[3]Input your response: ");
+    String ans3 = s.nextLine().toLowerCase();
+    totalAns = totalAns + " " + ans3;
     
 
 
-
+    long stopTime = System.currentTimeMillis();
+    long totalTime = (stopTime - startTime)/1000;
     
+    Main.clearScreen();
+    
+    System.out.println(totalTime + " seconds");
+
+    String ansList = totalAns.replaceAll("[^a-zA-Z]", " ");
+    
+    String[] ansArray = ansList.split(" ");
+    for (String l : ansArray) {
+      smellAL.add(l.toLowerCase());
+    }
+    while (smellAL.remove("")){
+    }
+
+    //calcSpeed(totalTime, smellAL.size());
+
+    removeCom(smellAL, comAL);
+    this.smellCount = compareAL(storyAL, smellAL);
+
+    String smellMatched = "Smell Matched: " + this.smellCount;
+
+    System.out.println(smellMatched);
+
+    countAL.add(smellMatched);
+
+    //remove when done
+    Main.sleep(10);
+
+    smell = true;
+    questApp();
   }
 
   public void questSight() {
@@ -164,8 +221,8 @@ class Process {
 
 
 
-  public int wordSpeed(int time, int word){
-    speedRate = "";
+  public int calcSpeed(int time, int word){
+    int speedRate = 0;
     
     return speedRate;
   }
@@ -186,12 +243,14 @@ class Process {
     }
   }
 
+  
   //Compare how many details are dublicates
   public int compareAL(ArrayList<String> compareTo, ArrayList<String> compareWith) {
-    
+    int matchResult = 0;
     for (int x = compareTo.size()-1; x > 0; x--){
       for(int y = 0; y < compareWith.size(); y++){
         if(compareTo.get(x).equals(compareWith.get(y))){
+          compareTo.remove(x);
           matchResult++;
         }
       }
@@ -200,5 +259,6 @@ class Process {
     return matchResult;  
     
   }
+  
 
 }
