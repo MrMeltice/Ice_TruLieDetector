@@ -39,28 +39,7 @@ class Main {
 
     storyText.removeCommon(storyAns);
 
-    
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-    
-
-
-
-
-
-
+    System.out.println("End of Examination: Thank you for your cooperation");
 
   }
 }
