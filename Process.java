@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.io.FileNotFoundException;
 
 class Process {
-  static double smellCount, sightCount, touchCount, tasteCount, hearCount, smellTot, sightTot, touchTot, tasteTot, hearTot;
+  static double smellCount, sightCount, touchCount, tasteCount, hearCount, smellTot, sightTot, touchTot, tasteTot, hearTot = 0;
   static double reli;
   static boolean smell, sight, touch, taste, hear, end = false;
   //main ArrayList
@@ -84,6 +84,10 @@ class Process {
     //remove when done
     System.out.println(countAL);
     System.out.println(smellAL);
+    System.out.println(sightAL);
+    System.out.println(tasteAL);
+    System.out.println(hearAL);
+    System.out.println(touchAL);
     System.out.println(storyAL);
     //
     System.out.println("Which of the following can you provide details on?");
@@ -148,7 +152,7 @@ class Process {
 
     Main.clearScreen();
     
-    System.out.println("[2]");
+    System.out.println("[2]Prior to the event that you described, what else did you ");
     String ans2 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans2;
 
@@ -177,9 +181,8 @@ class Process {
     System.out.println(smellMatched);
 
     countAL.add(smellMatched);
-
     //remove when done
-    Main.sleep(10);
+    Main.sleep(5);
 
     smell = true;
     questApp();
@@ -218,17 +221,16 @@ class Process {
     double speed = calcSpeed(totalTime, sightAL.size());
     String rate = rateSpeed(speed);
     removeCom(sightAL, comAL);
+    this.sightTot = sightAL.size();
     this.sightCount = compareAL(sightAL, storyAL);
     
-    String sightMatched = "Sight Matched: " + this.sightCount + " | Sight Speed: "+ rate + " | SightWPS: " + speed;
+    String sightMatched = "Sight Matched: " + this.sightCount + "/" + this.sightTot + " | Sight Speed: "+ rate + " | SightWPS: " + speed;
 
     System.out.println(sightMatched);
 
     countAL.add(sightMatched);
-
-
     //remove when done
-    Main.sleep(10);
+    Main.sleep(5);
 
     sight = true;
     questApp();
@@ -267,16 +269,16 @@ class Process {
     double speed = calcSpeed(totalTime, touchAL.size());
     String rate = rateSpeed(speed);
     removeCom(touchAL, comAL);
+    this.touchTot = touchAL.size();
     this.touchCount = compareAL(touchAL, storyAL);
     
-    String touchMatched = "Touch Matched: " + this.touchCount + " | Touch Speed: "+ rate + " | TouchWPS " + speed;
+    String touchMatched = "Touch Matched: " + this.touchCount + "/" + this.touchTot + " | Touch Speed: "+ rate + " | TouchWPS " + speed;
 
     System.out.println(touchMatched);
 
     countAL.add(touchMatched);
-
     //remove when done
-    Main.sleep(10);
+    Main.sleep(5);
 
     touch = true;
     questApp();
@@ -316,16 +318,16 @@ class Process {
     double speed = calcSpeed(totalTime, tasteAL.size());
     String rate = rateSpeed(speed);
     removeCom(tasteAL, comAL);
+    this.tasteTot = tasteAL.size();
     this.tasteCount = compareAL(tasteAL, storyAL);
     
-    String tasetMatched = "Taste Matched: " + this.tasteCount + " | Taste Speed: "+ rate + " | TasteWPS " + speed;
+    String tasetMatched = "Taste Matched: " + this.tasteCount + "/" + this.tasteTot + " | Taste Speed: "+ rate + " | TasteWPS " + speed;
 
     System.out.println(tasetMatched);
 
     countAL.add(tasetMatched);
-
     //remove when done
-    Main.sleep(10);
+    Main.sleep(5);
 
     taste = true;
     questApp();
@@ -364,40 +366,73 @@ class Process {
     double speed = calcSpeed(totalTime, hearAL.size());
     String rate = rateSpeed(speed);
     removeCom(hearAL, comAL);
+    this.hearTot = hearAL.size();
     this.hearCount = compareAL(hearAL, storyAL);
     
-    String hearMatched = "Hear Matched: " + this.tasteCount + " | Hear Speed: "+ rate + " | HearWPS " + speed;
+    String hearMatched = "Hear Matched: " + this.tasteCount + "/" + this.hearTot + " | Hear Speed: "+ rate + " | HearWPS " + speed;
 
     System.out.println(hearMatched);
 
     countAL.add(hearMatched);
-
     //remove when done
-    Main.sleep(10);
+    Main.sleep(5);
 
     hear = true;
     questApp();
   }
   
   public void procEnd(){
+    Main.clearScreen();
+    //Reverse percent for actual percent for grading
+    double smellPerc = 0;
+    double sightPerc = 0;
+    double tastePerc = 0;
+    double touchPerc = 0;
+    double hearPerc = 0;
 
-    double smellPerc = 100-(this.smellCount/this.smellTot);
-    double sightPerc = 100-(this.sightCount/this.sightTot);
-    double tastePerc = 100-(this.tasteCount/this.tasteTot);
-    double touchPerc = 100-(this.touchCount/this.touchTot);
-    double hearPerc = 100-(this.hearCount/this.hearTot);
+    //unless there is an input, do not execute --> NaN
+    if (smell == true){
+      smellPerc = 100-(this.smellCount/this.smellTot);
+    } 
+    if (sight == true){
+      sightPerc = 100-(this.sightCount/this.sightTot);
+    }
+    if (touch == true ){
+      touchPerc = 100-(this.touchCount/this.touchTot);
+    }
+    if (taste == true){
+      tastePerc = 100-(this.tasteCount/this.tasteTot);
+    }
+    if (hear == true){
+      hearPerc = 100-(this.hearCount/this.hearTot);
+    }
 
-    int smellInt = smell? 1:0;
-    int sightInt = sight? 1:0;
-    int tasteInt = taste? 1:0;
-    int touchInt = touch? 1:0;
-    int hearInt = hear? 1:0;
+    System.out.println("Smell: " + smellPerc);
+    System.out.println("Sight: " + sightPerc);
+    System.out.println("Touch: " + touchPerc);
+    System.out.println("Taste: " + tastePerc);
+    System.out.println("Hear: " + hearPerc);
 
-    double matchGrade = (smellInt*smellPerc + sightInt*sightPerc + tasteInt*tastePerc + touchInt*touchPerc + hearInt*hearPerc)/(smellInt+sightInt+tasteInt+touchInt+hearInt);
+    double smellInt = smell? 1:0;
+    double sightInt = sight? 1:0;
+    double tasteInt = taste? 1:0;
+    double touchInt = touch? 1:0;
+    double hearInt = hear? 1:0;
 
-    System.out.println(matchGrade);
+    System.out.println(countAL);
 
+    double topVal = (smellInt*smellPerc) + (sightInt*sightPerc) + (tasteInt*tastePerc) + (touchInt*touchPerc) + (hearInt*hearPerc);
+    double botVal = smellInt+sightInt+tasteInt+touchInt+hearInt;
 
+    double matchGrade = topVal/botVal;
+
+    System.out.println("Percentage of matched Unique words: "+ matchGrade);
+
+    String pressEnter = "Press Enter to Continue...";
+
+    System.out.println("\n" + pressEnter);
+    s.nextLine();
+    Main.clearScreen();
 
   }
 
@@ -437,28 +472,28 @@ class Process {
   //post = return rating from wordspersec to method
   public String rateSpeed(double wordsPerSec){
     String rating = "";
-    //Reliability
+    //50 wpm = 7/7
     if (wordsPerSec >= 0.83){
       rating = "Very High";
-    }//Above Average
+    }//45 wpm = 6/7
     else if(wordsPerSec >= 0.75){
       rating = "High";
-    }//Average
+    }//40 wpm = 5/7
     else if(wordsPerSec >= 0.66){
       rating = "Moderate";
-    }//Below Average
+    }//35 wpm = 4/7
     else if(wordsPerSec >= 0.58){
       rating = "Below Moderate";
-    }//
+    }//30 wpm = 3/7
     else if(wordsPerSec >= 0.50){
       rating = "Low";
-    }
+    }//25 wpm = 2/7
     else if(wordsPerSec >= (0.41)){
       rating = "Very Low";
-    }
+    }//20 wpm = 1/7
     else if(wordsPerSec >= (0.33)){
       rating = "Extremely Low";
-    }
+    }//Erroe
     else{
       rating = "No Reliability";
     }
