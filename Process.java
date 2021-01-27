@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.io.FileNotFoundException;
 
 class Process {
-  static int smellCount, sightCount, touchCount, tasteCount, hearCount;
+  static double smellCount, sightCount, touchCount, tasteCount, hearCount, smellTot, sightTot, touchTot, tasteTot, hearTot;
   static double reli;
   static boolean smell, sight, touch, taste, hear, end = false;
   //main ArrayList
@@ -26,9 +26,9 @@ class Process {
   static Scanner s = new Scanner(System.in);
 
   public void promptIntro() {
-    System.out.println("Please note: The more details you are able to provide the more reliable your information will become. \n\nTo achieve such a task, we would like you to answer each prompt within 3 sentence as fast as you can.");
+    System.out.println("To achieve such a task, we would like you to answer each prompt within 3 sentence as fast as you can. You will be questioned on \n\nPlease note: The more details you are able to provide the more reliable your information will become. The faster you are able to respond will also affect the reliability of your statement.");
 
-    String pressEnter = "𝓟𝓻𝓮𝓼𝓼 𝓔𝓷𝓽𝓮𝓻 𝓣𝓸 𝓒𝓸𝓷𝓽𝓲𝓷𝓾𝓮";
+    String pressEnter = "Press Enter to Continue...";
 
     System.out.println("\n" + pressEnter);
     s.nextLine();
@@ -128,7 +128,7 @@ class Process {
     else if (choice.equals("e") && hear == false){
       questHear();
     }
-    else if (choice.equals("e") && hear == false){
+    else if (choice.equals("f") && end == false){
       procEnd();
     } else {
       questApp();
@@ -143,18 +143,18 @@ class Process {
 
     long startTime = System.currentTimeMillis();
 
-    System.out.println("[1]Input your response: ");
+    System.out.println("[1]As of the time of event, if I was there with you, what would I have smelled? Describe as much as possible. This can range from a strong fragrance to a very mild smell.\n");
     String totalAns = s.nextLine().toLowerCase();
 
     Main.clearScreen();
     
-    System.out.println("[2]Input your response: ");
+    System.out.println("[2]");
     String ans2 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans2;
 
     Main.clearScreen();
     
-    System.out.println("[3]Input your response: ");
+    System.out.println("[3]");
     String ans3 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans3;
 
@@ -169,9 +169,10 @@ class Process {
     double speed = calcSpeed(totalTime, smellAL.size());
     String rate = rateSpeed(speed);
     removeCom(smellAL, comAL);
+    this.smellTot = smellAL.size();
     this.smellCount = compareAL(smellAL, storyAL);
     
-    String smellMatched = "Smell Matched: " + this.smellCount + " | Smell Speed: "+ rate + " | SmellWPS " + speed;
+    String smellMatched = "Smell Matched: " + this.smellCount + "/" + this.smellTot + " | Smell Speed: "+ rate + " | SmellWPS " + speed;
 
     System.out.println(smellMatched);
 
@@ -224,6 +225,7 @@ class Process {
     System.out.println(sightMatched);
 
     countAL.add(sightMatched);
+
 
     //remove when done
     Main.sleep(10);
@@ -376,9 +378,27 @@ class Process {
     hear = true;
     questApp();
   }
-
+  
   public void procEnd(){
-    
+
+    double smellPerc = 100-(this.smellCount/this.smellTot);
+    double sightPerc = 100-(this.sightCount/this.sightTot);
+    double tastePerc = 100-(this.tasteCount/this.tasteTot);
+    double touchPerc = 100-(this.touchCount/this.touchTot);
+    double hearPerc = 100-(this.hearCount/this.hearTot);
+
+    int smellInt = smell? 1:0;
+    int sightInt = sight? 1:0;
+    int tasteInt = taste? 1:0;
+    int touchInt = touch? 1:0;
+    int hearInt = hear? 1:0;
+
+    double matchGrade = (smellInt*smellPerc + sightInt*sightPerc + tasteInt*tastePerc + touchInt*touchPerc + hearInt*hearPerc)/(smellInt+sightInt+tasteInt+touchInt+hearInt);
+
+    System.out.println(matchGrade);
+
+
+
   }
 
   //pre = get String as parameter

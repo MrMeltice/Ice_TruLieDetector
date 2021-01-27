@@ -17,18 +17,18 @@ class Main {
 
     System.out.println();
     
-    String info = "INSERT INFO HERE";
+    String info = "Welcome to the 17th generation: Police Inquieris Private Information System or better known as P.I.P.I.S. This ";
 
     System.out.println(info);
 
-    String pressEnter = "𝓟𝓻𝓮𝓼𝓼 𝓔𝓷𝓽𝓮𝓻 𝓣𝓸 𝓒𝓸𝓷𝓽𝓲𝓷𝓾𝓮";
+    String pressEnter = "Press Enter to Continue...";
 
     System.out.println("\n" + pressEnter);
     Scanner s = new Scanner(System.in);
     s.nextLine();
     
 
-    String storyPrompt = "Now you should be able to insert your story. Please keep the story as detailed as possible as it should be concise. Describe your surroundings, ";
+    String storyPrompt = "Now you should be able to insert your story. Please keep the story as detailed as possible as it should be concise. Please recall as much as you can of the events that eventually led up to ";
 
 
     System.out.println(storyPrompt);
