@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 
 class Process {
   static double smellCount, sightCount, touchCount, tasteCount, hearCount, smellTot, sightTot, touchTot, tasteTot, hearTot = 0;
-  static double reli;
   static boolean smell, sight, touch, taste, hear, end = false;
   //main ArrayList
   static ArrayList<String> storyAL = new ArrayList();
@@ -26,7 +25,7 @@ class Process {
   static Scanner s = new Scanner(System.in);
 
   public void promptIntro() {
-    System.out.println("To achieve such a task, we would like you to answer each prompt within 3 sentence as fast as you can. You will be questioned on \n\nPlease note: The more details you are able to provide the more reliable your information will become. The faster you are able to respond will also affect the reliability of your statement.");
+    System.out.println("We would like you to answer each prompt within 3 sentence as fast as you can. \n\nPlease note: The more details you are able to provide the more reliable your information will become.");
 
     String pressEnter = "Press Enter to Continue...";
 
@@ -36,7 +35,7 @@ class Process {
 
   //pre = get string Story from Main
   //post = remove common words using comWord.txt from story --> ArrayList
-  public void removeCommon(String story) {
+  public void startProc(String story) {
     //use story from Main --> ArrayList
 
     //remove things like periods, or commas etc
@@ -48,7 +47,6 @@ class Process {
     }
     while (storyAL.remove("")){
     }
-
 
     //import list of common words text file --> ArrayList
     String commonText = "";
@@ -68,11 +66,7 @@ class Process {
       comAL.add(a.toLowerCase());
     }
 
-    System.out.println("WordCount storyAL: " + storyAL.size());
-
     removeCom(storyAL, comAL);
-
-    System.out.println("WordCount storyAL After: " + storyAL.size());
 
     questApp();
 
@@ -81,15 +75,6 @@ class Process {
 
   public void questApp() {
     Main.clearScreen();
-    //remove when done
-    System.out.println(countAL);
-    System.out.println(smellAL);
-    System.out.println(sightAL);
-    System.out.println(tasteAL);
-    System.out.println(hearAL);
-    System.out.println(touchAL);
-    System.out.println(storyAL);
-    //
     System.out.println("Which of the following can you provide details on?");
 
     System.out.println("The more details you are able to provide the more reliable your information will become, so select as much as it is applicable to the situation");
@@ -147,18 +132,18 @@ class Process {
 
     long startTime = System.currentTimeMillis();
 
-    System.out.println("[1]As of the time of event, if I was there with you, what would I have smelled? Describe as much as possible. This can range from a strong fragrance to a very mild smell.\n");
+    System.out.println("[1]As of the time of event, if I was there with you, what would I have smelled? This can range from a strong fragrance to a very mild smell.\n");
     String totalAns = s.nextLine().toLowerCase();
 
     Main.clearScreen();
     
-    System.out.println("[2]Prior to the event that you described, what else did you ");
+    System.out.println("[2]Prior to the event that you described, what would you say was the most pungent smell you are able to recall?\n");
     String ans2 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans2;
 
     Main.clearScreen();
     
-    System.out.println("[3]");
+    System.out.println("[3]If we recall the smell in question [1], what is your relative location to the smell. Beside, Below, Behind? Elaborate.\n");
     String ans3 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans3;
 
@@ -173,6 +158,7 @@ class Process {
     double speed = calcSpeed(totalTime, smellAL.size());
     String rate = rateSpeed(speed);
     removeCom(smellAL, comAL);
+
     this.smellTot = smellAL.size();
     this.smellCount = compareAL(smellAL, storyAL);
     
@@ -181,8 +167,6 @@ class Process {
     System.out.println(smellMatched);
 
     countAL.add(smellMatched);
-    //remove when done
-    Main.sleep(5);
 
     smell = true;
     questApp();
@@ -195,18 +179,18 @@ class Process {
 
     long startTime = System.currentTimeMillis();
 
-    System.out.println("[1]Input your response: ");
+    System.out.println("[1]Upon the current situation you have described, what are some noticable objects in the scene that you can remember?");
     String totalAns = s.nextLine().toLowerCase();
 
     Main.clearScreen();
     
-    System.out.println("[2]Input your response: ");
+    System.out.println("[2]Recall to first question what atmosphere would you describe were your surrounding? Was it dark? was it lit properly? Elaborate visually.");
     String ans2 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans2;
 
     Main.clearScreen();
     
-    System.out.println("[3]Input your response: ");
+    System.out.println("[3]In question [1] the noticable objects you recall viewing, what was their position relative to each other?");
     String ans3 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans3;
 
@@ -226,11 +210,7 @@ class Process {
     
     String sightMatched = "Sight Matched: " + this.sightCount + "/" + this.sightTot + " | Sight Speed: "+ rate + " | SightWPS: " + speed;
 
-    System.out.println(sightMatched);
-
     countAL.add(sightMatched);
-    //remove when done
-    Main.sleep(5);
 
     sight = true;
     questApp();
@@ -243,18 +223,18 @@ class Process {
 
     long startTime = System.currentTimeMillis();
 
-    System.out.println("[1]Input your response: ");
+    System.out.println("[1]Identify important texture that you have associated your body with at the time of the situation. Why did you feel that texture?\n");
     String totalAns = s.nextLine().toLowerCase();
 
     Main.clearScreen();
     
-    System.out.println("[2]Input your response: ");
+    System.out.println("[2]In question [1], analyze the events that led up to the eventual comtact of felt of texture in chronological order.\n");
     String ans2 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans2;
 
     Main.clearScreen();
     
-    System.out.println("[3]Input your response: ");
+    System.out.println("[3]In prompt [1], ");
     String ans3 = s.nextLine().toLowerCase();
     totalAns = totalAns + " " + ans3;
 
@@ -274,11 +254,7 @@ class Process {
     
     String touchMatched = "Touch Matched: " + this.touchCount + "/" + this.touchTot + " | Touch Speed: "+ rate + " | TouchWPS " + speed;
 
-    System.out.println(touchMatched);
-
     countAL.add(touchMatched);
-    //remove when done
-    Main.sleep(5);
 
     touch = true;
     questApp();
@@ -292,7 +268,7 @@ class Process {
 
     long startTime = System.currentTimeMillis();
 
-    System.out.println("[1]Input your response: ");
+    System.out.println("[1]");
     String totalAns = s.nextLine().toLowerCase();
 
     Main.clearScreen();
@@ -323,11 +299,7 @@ class Process {
     
     String tasetMatched = "Taste Matched: " + this.tasteCount + "/" + this.tasteTot + " | Taste Speed: "+ rate + " | TasteWPS " + speed;
 
-    System.out.println(tasetMatched);
-
     countAL.add(tasetMatched);
-    //remove when done
-    Main.sleep(5);
 
     taste = true;
     questApp();
@@ -371,11 +343,7 @@ class Process {
     
     String hearMatched = "Hear Matched: " + this.tasteCount + "/" + this.hearTot + " | Hear Speed: "+ rate + " | HearWPS " + speed;
 
-    System.out.println(hearMatched);
-
     countAL.add(hearMatched);
-    //remove when done
-    Main.sleep(5);
 
     hear = true;
     questApp();
@@ -392,19 +360,19 @@ class Process {
 
     //unless there is an input, do not execute --> NaN
     if (smell == true){
-      smellPerc = 100-(this.smellCount/this.smellTot);
+      smellPerc = 100-((this.smellCount/this.smellTot)*100);
     } 
     if (sight == true){
-      sightPerc = 100-(this.sightCount/this.sightTot);
+      sightPerc = 100-((this.sightCount/this.sightTot)*100);
     }
     if (touch == true ){
-      touchPerc = 100-(this.touchCount/this.touchTot);
+      touchPerc = 100-((this.touchCount/this.touchTot)*100);
     }
     if (taste == true){
-      tastePerc = 100-(this.tasteCount/this.tasteTot);
+      tastePerc = 100-((this.tasteCount/this.tasteTot)*100);
     }
     if (hear == true){
-      hearPerc = 100-(this.hearCount/this.hearTot);
+      hearPerc = 100-((this.hearCount/this.hearTot)*100);
     }
 
     System.out.println("Smell: " + smellPerc);
@@ -460,10 +428,10 @@ class Process {
     System.out.println("Seconds: " + timeSec + " | Amount of Words: " + word);
 
     double wordsPerSec = word/timeSec;
-    double wordsPerMin = wordsPerSec * 60;
-    System.out.println("Words per Second: " + wordsPerSec + " | Words per Minute: " + wordsPerMin);
-
-    Main.sleep(5);
+    
+    //double wordsPerMin = wordsPerSec * 60;
+    
+    //System.out.println("Words per Second: " + wordsPerSec + " | Words per Minute: " + wordsPerMin);
     
     return wordsPerSec;
   }

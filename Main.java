@@ -37,7 +37,7 @@ class Main {
 
     Process storyText = new Process();
 
-    storyText.removeCommon(storyAns);
+    storyText.startProc(storyAns);
 
     System.out.println("End of Examination: Thank you for your cooperation");
 
